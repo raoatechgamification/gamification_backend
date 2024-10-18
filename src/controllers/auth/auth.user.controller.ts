@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ResponseHandler } from "../../middlewares/responseHandler.middleware";
-import User from "../../models/user.model"; 
-import Organization from "../../models/organization.model"; 
+import User from "../../models/user.model";
+import Organization from "../../models/organization.model";
 import { comparePassword, hashPassword } from "../../utils/hash";
 import { generateToken } from "../../utils/jwt";
 
@@ -16,7 +16,7 @@ export class UserAuthController {
         return ResponseHandler.failure(
           res,
           `A user has been registered with this email`,
-          400
+          400,
         );
       }
 
@@ -26,7 +26,7 @@ export class UserAuthController {
         return ResponseHandler.failure(
           res,
           "This username is unavailable",
-          400
+          400,
         );
       }
 
@@ -39,7 +39,7 @@ export class UserAuthController {
           return ResponseHandler.failure(
             res,
             "Organization does not exist",
-            400
+            400,
           );
       }
 
@@ -50,13 +50,15 @@ export class UserAuthController {
         organization: organizationId,
       });
 
-      const userResponse = await User.findById(newUser._id).select("-password -role");
+      const userResponse = await User.findById(newUser._id).select(
+        "-password -role",
+      );
 
       return ResponseHandler.success(
         res,
         userResponse,
         "User account created successfully",
-        201
+        201,
       );
     } catch (error) {
       next(error);
@@ -75,19 +77,19 @@ export class UserAuthController {
 
       const checkPassword = await comparePassword(
         password,
-        registeredUser.password
+        registeredUser.password,
       );
 
       if (!checkPassword) {
         return ResponseHandler.failure(
           res,
           "You have entered an incorrect password",
-          400
+          400,
         );
       }
 
       const payload = {
-        id: registeredUser._id, 
+        id: registeredUser._id,
         email: registeredUser.email,
         username: registeredUser.username,
         phone: registeredUser.phone,
@@ -99,13 +101,15 @@ export class UserAuthController {
 
       const token = await generateToken(payload);
 
-      const userResponse = await User.findById(registeredUser._id).select("-password -role");
+      const userResponse = await User.findById(registeredUser._id).select(
+        "-password -role",
+      );
 
       return ResponseHandler.loginResponse(
         res,
         token,
         userResponse,
-        "Login Successful"
+        "Login Successful",
       );
     } catch (error) {
       next(error);

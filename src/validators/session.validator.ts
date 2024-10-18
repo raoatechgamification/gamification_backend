@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { body, param, validationResult  } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
 const errorResponse = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -16,9 +16,7 @@ const errorResponse = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const createOrEditSessionValidator = [
-  body("name.title")
-    .notEmpty()
-    .withMessage("Session title is required"),
+  body("name.title").notEmpty().withMessage("Session title is required"),
 
   body("name.commencementDate")
     .isISO8601()
@@ -46,25 +44,21 @@ export const createOrEditSessionValidator = [
     .toDate()
     .withMessage("Valid end date is required"),
 
-  body("bills.*.termName")
-    .notEmpty()
-    .withMessage("Bill term name is required"),
+  body("bills.*.termName").notEmpty().withMessage("Bill term name is required"),
 
-  body("bills.*.billId")
-    .notEmpty()
-    .withMessage("Bill ID is required"),
+  body("bills.*.billId").notEmpty().withMessage("Bill ID is required"),
 
   body("oneBillForAnEntireSession")
     .isBoolean()
-    .withMessage("Valid boolean value for oneBillForAnEntireSession is required"),
+    .withMessage(
+      "Valid boolean value for oneBillForAnEntireSession is required",
+    ),
 
-  errorResponse
+  errorResponse,
 ];
 
 export const sessionIdValidator = [
-  param("sessionId")
-    .isMongoId()
-    .withMessage("Valid session ID is required"),
+  param("sessionId").isMongoId().withMessage("Valid session ID is required"),
 
-  errorResponse
+  errorResponse,
 ];

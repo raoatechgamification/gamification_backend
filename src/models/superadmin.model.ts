@@ -1,48 +1,51 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document, Model } from "mongoose";
 
 interface ISuperAdmin extends Document {
-  username?: string; 
-  email: string; 
-  firstName?: string; 
-  lastName?: string; 
-  role: string; 
-  password: string; 
+  username?: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  role: string;
+  password: string;
 }
 
 const SuperAdminSchema: Schema<ISuperAdmin> = new Schema(
   {
     username: {
       type: String,
-      default: null, 
+      default: null,
     },
     email: {
       type: String,
-      required: true, 
-      unique: true, 
+      required: true,
+      unique: true,
     },
     firstName: {
       type: String,
-      default: null, 
+      default: null,
     },
     lastName: {
       type: String,
-      default: null, 
+      default: null,
     },
     role: {
       type: String,
-      default: 'superAdmin', 
-      required: true, 
+      default: "superAdmin",
+      required: true,
     },
     password: {
       type: String,
-      required: true, 
+      required: true,
     },
   },
   {
-    timestamps: true, 
-  }
+    timestamps: true,
+  },
 );
 
-const SuperAdmin: Model<ISuperAdmin> = mongoose.model<ISuperAdmin>('SuperAdmin', SuperAdminSchema);
+const SuperAdmin: Model<ISuperAdmin> = mongoose.model<ISuperAdmin>(
+  "SuperAdmin",
+  SuperAdminSchema,
+);
 
 export default SuperAdmin;

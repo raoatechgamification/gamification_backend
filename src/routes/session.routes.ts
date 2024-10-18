@@ -2,15 +2,18 @@ import { Router } from "express";
 import { authenticate, authorize } from "../middlewares/auth.middleware";
 import SessionController from "../controllers/session.controller";
 
-import { createOrEditSessionValidator, sessionIdValidator } from "../validators/session.validator";
+import {
+  createOrEditSessionValidator,
+  sessionIdValidator,
+} from "../validators/session.validator";
 
 const {
-  createSession, 
+  createSession,
   editSession,
-  viewASession, 
-  viewAllSessions, 
-  deleteSession
-} = SessionController
+  viewASession,
+  viewAllSessions,
+  deleteSession,
+} = SessionController;
 
 const router = Router();
 
@@ -19,7 +22,7 @@ router.post(
   authenticate,
   authorize("admin"),
   ...createOrEditSessionValidator,
-  createSession
+  createSession,
 );
 
 router.put(
@@ -27,29 +30,19 @@ router.put(
   authenticate,
   authorize("admin"),
   ...createOrEditSessionValidator,
-  editSession
+  editSession,
 );
 
-router.get(
-  "/:sessionId", 
-  authenticate, 
-  ...sessionIdValidator,
-  viewASession
-);
+router.get("/:sessionId", authenticate, ...sessionIdValidator, viewASession);
 
-router.get(
-  "/",
-  authenticate, 
-  authorize("admin"), 
-  viewAllSessions
-);
+router.get("/", authenticate, authorize("admin"), viewAllSessions);
 
 router.delete(
   "/:sessionId",
-  authenticate, 
+  authenticate,
   authorize("admin"),
   ...sessionIdValidator,
-  deleteSession
-)
+  deleteSession,
+);
 
 export default router;

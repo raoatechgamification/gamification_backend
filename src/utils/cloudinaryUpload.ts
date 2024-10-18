@@ -1,8 +1,12 @@
-import cloudinary from '../config/cloudinary.config'; 
+import cloudinary from "../config/cloudinary.config";
 
-export const uploadToCloudinary = async (fileBuffer: Buffer, mimetype: string, folder: string) => {
+export const uploadToCloudinary = async (
+  fileBuffer: Buffer,
+  mimetype: string,
+  folder: string,
+) => {
   try {
-    const fileBase64 = `data:${mimetype};base64,${fileBuffer.toString('base64')}`;
+    const fileBase64 = `data:${mimetype};base64,${fileBuffer.toString("base64")}`;
     const result = await cloudinary.uploader.upload(fileBase64, {
       folder,
     });

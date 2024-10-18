@@ -16,7 +16,7 @@ router.post(
   authenticate,
   authorize("admin"),
   ...createBillValidators,
-  createBill
+  createBill,
 );
 
 router.get("/view-all", authenticate, authorize("admin"), fetchAllBills);
@@ -26,7 +26,7 @@ router.get(
   authenticate,
   authorize("admin"),
   ...billIdValidator,
-  viewBill
+  viewBill,
 );
 
 router.delete(
@@ -34,7 +34,7 @@ router.delete(
   authenticate,
   authorize("admin"),
   ...billIdValidator,
-  deleteBill
+  deleteBill,
 );
 
 export default router;

@@ -3,26 +3,26 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 interface IGroup extends Document {
   name: string;
   basicCustomization: {
-    learnerTerm: string; 
+    learnerTerm: string;
     learnerGroup: {
-      generalTerm: string; 
-      groups: string[]; 
+      generalTerm: string;
+      groups: string[];
     };
     subLearnerGroup: {
-      generalSubTerm: string; 
-      subGroups: { name: string }[]; 
+      generalSubTerm: string;
+      subGroups: { name: string }[];
     };
     instructor: {
-      generalInstructorTerm: string; 
-      names: string[]; 
+      generalInstructorTerm: string;
+      names: string[];
     };
   };
   advancedCustomization: {
     academicProgram: {
-      maxMembersPerProgram: number; 
+      maxMembersPerProgram: number;
     };
-    idFormat: string; 
-    personalization: string; 
+    idFormat: string;
+    personalization: string;
   };
 }
 
@@ -98,7 +98,7 @@ const GroupSchema: Schema<IGroup> = new Schema(
       },
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Group: Model<IGroup> = mongoose.model<IGroup>("Group", GroupSchema);

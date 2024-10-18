@@ -27,14 +27,18 @@ export class SubmissionController {
         return ResponseHandler.failure(
           res,
           "You have already submitted this assessment.",
-          400
+          400,
         );
       }
 
       let fileUploadResult: any = null;
 
       if (file) {
-        fileUploadResult = await uploadToCloudinary(file.buffer, file.mimetype, "submission");
+        fileUploadResult = await uploadToCloudinary(
+          file.buffer,
+          file.mimetype,
+          "submission",
+        );
 
         // const filename = `${Date.now()}-${file.originalname}`;
         // const fileStream = file.buffer;
@@ -54,14 +58,14 @@ export class SubmissionController {
         answerText,
         learnerId: learnerId,
         assessmentId: assessmentId,
-        submittedFile: fileUploadResult ? fileUploadResult.secure_url : null, 
+        submittedFile: fileUploadResult ? fileUploadResult.secure_url : null,
         // submittedFile: fileUploadResult ? fileUploadResult.Location : null,
       });
 
       return ResponseHandler.success(
         res,
         submission,
-        "Assessment submitted successfully"
+        "Assessment submitted successfully",
       );
     } catch (error: any) {
       if (error instanceof multer.MulterError) {
@@ -70,14 +74,14 @@ export class SubmissionController {
             res,
             "Invalid file type. Only images, PDFs, and documents are allowed.",
             400,
-            error
+            error,
           );
         } else if (error.code === "LIMIT_FILE_SIZE") {
           return ResponseHandler.failure(
             res,
             "File size too large. Maximum allowed size is 10MB.",
             400,
-            error
+            error,
           );
         }
       }

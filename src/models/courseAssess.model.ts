@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface CourseAccessDocument extends Document {
   userId: string;
@@ -14,7 +14,10 @@ const courseAccessSchema = new Schema<CourseAccessDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model<CourseAccessDocument>('CourseAccess', courseAccessSchema);
+export default mongoose.model<CourseAccessDocument>(
+  "CourseAccess",
+  courseAccessSchema,
+);

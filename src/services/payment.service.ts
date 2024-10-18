@@ -1,14 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
 
 class PaymentService {
-  private flutterwaveBaseUrl = 'https://api.flutterwave.com/v3';
+  private flutterwaveBaseUrl = "https://api.flutterwave.com/v3";
   private flutterwaveSecretKey = process.env.FLUTTERWAVE_SECRET_KEY;
 
   async processPayment(
     userId: string,
     cardToken: string,
     amount: number,
-    courseId: string
+    courseId: string,
   ) {
     const paymentPayload = {
       tx_ref: `TX-${Date.now()}`,
@@ -32,7 +32,7 @@ class PaymentService {
           headers: {
             Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
           },
-        }
+        },
       );
 
       return response.data;
@@ -49,7 +49,7 @@ class PaymentService {
           headers: {
             Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
           },
-        }
+        },
       );
 
       return response.data;
@@ -93,8 +93,3 @@ class PaymentService {
 }
 
 export default new PaymentService();
-
-
-
-  
-

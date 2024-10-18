@@ -42,7 +42,7 @@ export const createOrganizationValidator = [
     .isString()
     .isStrongPassword()
     .withMessage(
-      "Please provide a strong password. Password must be at least eight characters, with uppercase and lowercase letter, and a special character"
+      "Please provide a strong password. Password must be at least eight characters, with uppercase and lowercase letter, and a special character",
     ),
 
   body("confirmPassword")

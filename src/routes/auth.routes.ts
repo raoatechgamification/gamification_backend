@@ -24,7 +24,7 @@ const router = Router();
 router.post(
   "/org/register",
   ...createOrganizationValidator,
-  registerOrganization
+  registerOrganization,
 );
 router.post("/org/login", ...loginOrganizationValidator, loginOrganization);
 

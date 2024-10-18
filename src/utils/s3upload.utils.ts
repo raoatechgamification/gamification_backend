@@ -1,6 +1,6 @@
 import multer from "multer";
 import AWS from "aws-sdk";
-import { Request } from 'express';
+import { Request } from "express";
 
 export const upload = multer({
   storage: multer.memoryStorage(),
@@ -24,8 +24,8 @@ export const upload = multer({
       cb(
         new multer.MulterError(
           "LIMIT_UNEXPECTED_FILE",
-          "Invalid file type. Only images, PDFs, and documents are allowed."
-        )
+          "Invalid file type. Only images, PDFs, and documents are allowed.",
+        ),
       );
     }
   },

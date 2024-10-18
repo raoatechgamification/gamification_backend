@@ -80,46 +80,38 @@ export const createCourseValidator = [
   errorResponse,
 ];
 
-
 export const courseContentValidator = [
-  param('courseId')
+  param("courseId")
     .isMongoId()
-    .withMessage('Invalid courseId format. Please provide a valid courseId.'),
+    .withMessage("Invalid courseId format. Please provide a valid courseId."),
 
-  body('title')
+  body("title")
     .notEmpty()
-    .withMessage('Title is required')
+    .withMessage("Title is required")
     .isString()
-    .withMessage('Title must be a string'),
+    .withMessage("Title must be a string"),
 
-  body('objectives')
+  body("objectives")
     .notEmpty()
-    .withMessage('Objectives are required')
+    .withMessage("Objectives are required")
     .isString()
-    .withMessage('Objectives must be a string'),
+    .withMessage("Objectives must be a string"),
 
-  body('link')
-    .optional()
-    .isURL()
-    .withMessage('Link must be a valid URL'),
-  
+  body("link").optional().isURL().withMessage("Link must be a valid URL"),
+
   validateOptionalFile,
 
-  errorResponse
+  errorResponse,
 ];
 
 export const getCourseCurriculumValidator = [
-  param('courseId')
-    .isMongoId()
-    .withMessage('Invalid courseId'),
+  param("courseId").isMongoId().withMessage("Invalid courseId"),
 
-  errorResponse
-]
+  errorResponse,
+];
 
 export const createAnnouncementValidator = [
-  param("courseId")
-    .isMongoId()
-    .withMessage("Invalid courseId"),
+  param("courseId").isMongoId().withMessage("Invalid courseId"),
 
   body("title")
     .notEmpty()
@@ -143,5 +135,5 @@ export const createAnnouncementValidator = [
     .isBoolean()
     .withMessage("sendEmail must be a boolean"),
 
-  errorResponse
+  errorResponse,
 ];

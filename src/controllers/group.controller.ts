@@ -49,7 +49,11 @@ export class GroupController {
 
       const savedGroup = await newGroup.save();
 
-      return ResponseHandler.success(res, savedGroup, "Group created successfully");
+      return ResponseHandler.success(
+        res,
+        savedGroup,
+        "Group created successfully",
+      );
     } catch (error) {
       next(error);
     }
@@ -78,29 +82,37 @@ export class GroupController {
           $set: {
             name,
             "basicCustomization.learnerTerm": learnerTerm,
-            "basicCustomization.learnerGroup.generalTerm": generalLearnerGroupTerm,
+            "basicCustomization.learnerGroup.generalTerm":
+              generalLearnerGroupTerm,
             "basicCustomization.learnerGroup.groups": groups,
-            "basicCustomization.subLearnerGroup.generalSubTerm": generalSubLearnerGroupTerm,
+            "basicCustomization.subLearnerGroup.generalSubTerm":
+              generalSubLearnerGroupTerm,
             "basicCustomization.subLearnerGroup.subGroups": subGroups.map(
               (subGroupName: string) => ({
                 name: subGroupName,
-              })
+              }),
             ),
-            "basicCustomization.instructor.generalInstructorTerm": generalInstructorTerm,
+            "basicCustomization.instructor.generalInstructorTerm":
+              generalInstructorTerm,
             "basicCustomization.instructor.names": instructorNames,
-            "advancedCustomization.academicProgram.maxMembersPerProgram": maxMembersPerProgram,
+            "advancedCustomization.academicProgram.maxMembersPerProgram":
+              maxMembersPerProgram,
             "advancedCustomization.idFormat": idFormat,
             "advancedCustomization.personalization": personalization,
           },
         },
-        { new: true, runValidators: true }
+        { new: true, runValidators: true },
       );
 
       if (!updatedGroup) {
         return ResponseHandler.failure(res, "Group not found", 404);
       }
 
-      return ResponseHandler.success(res, updatedGroup, "Group updated successfully");
+      return ResponseHandler.success(
+        res,
+        updatedGroup,
+        "Group updated successfully",
+      );
     } catch (error) {
       next(error);
     }

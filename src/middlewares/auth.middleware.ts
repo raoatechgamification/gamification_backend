@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../utils/jwt";
-import User from '../models/user.model';
+import User from "../models/user.model";
 import Organization from "../models/organization.model";
 import SuperAdmin from "../models/superadmin.model";
 
 export const authenticate = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).json({ message: "Unauthorized access" });
@@ -26,10 +26,10 @@ export const authorize = (role: "user" | "admin" | "superAdmin") => {
     const userRole = req.user?.role;
 
     if (!userRole) {
-      return res.status(403).json({ message: 'No role found for user' });
+      return res.status(403).json({ message: "No role found for user" });
     }
 
-    if (role === 'admin' && userRole === 'superAdmin') {
+    if (role === "admin" && userRole === "superAdmin") {
       const superAdmin = await SuperAdmin.findById(req.user?.id);
       if (!superAdmin) {
         return res.status(403).json({ message: "SuperAdmin not found" });
@@ -39,7 +39,7 @@ export const authorize = (role: "user" | "admin" | "superAdmin") => {
     }
 
     if (userRole === role) {
-      if (role === 'admin') {
+      if (role === "admin") {
         const admin = await Organization.findById(req.user?.id);
         if (!admin) {
           return res.status(403).json({ message: "Admin not found" });
@@ -47,7 +47,7 @@ export const authorize = (role: "user" | "admin" | "superAdmin") => {
         req.admin = admin; // Will not be null now
       }
 
-      if (role === 'superAdmin') {
+      if (role === "superAdmin") {
         const superAdmin = await SuperAdmin.findById(req.user?.id);
         if (!superAdmin) {
           return res.status(403).json({ message: "SuperAdmin not found" });

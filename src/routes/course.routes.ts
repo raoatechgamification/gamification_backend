@@ -10,12 +10,12 @@ import {
 } from "../validators/course.validator";
 import { upload } from "../utils/s3upload.utils";
 
-const { 
-  createCourse, 
-  createCourseContent, 
+const {
+  createCourse,
+  createCourseContent,
   createAnnouncement,
   getCourseCurriculum,
-  getAllAnnouncementsByCourse 
+  getAllAnnouncementsByCourse,
 } = new CourseController();
 
 const router = Router();
@@ -25,7 +25,7 @@ router.post(
   authenticate,
   authorize("admin"),
   ...createCourseValidator,
-  createCourse
+  createCourse,
 );
 
 router.post(
@@ -34,14 +34,14 @@ router.post(
   authorize("admin"),
   upload.array("file", 10),
   ...courseContentValidator,
-  createCourseContent
+  createCourseContent,
 );
 
 router.get(
   "/curriculum/:courseId",
   authenticate,
   ...getCourseCurriculumValidator,
-  getCourseCurriculum
+  getCourseCurriculum,
 );
 
 router.post(
@@ -49,14 +49,14 @@ router.post(
   authenticate,
   authorize("admin"),
   ...createAnnouncementValidator,
-  createAnnouncement
+  createAnnouncement,
 );
 
 router.get(
-  "/announcement/:courseId", 
+  "/announcement/:courseId",
   authenticate,
   ...getCourseCurriculumValidator,
-  getAllAnnouncementsByCourse
+  getAllAnnouncementsByCourse,
 );
 
 export default router;

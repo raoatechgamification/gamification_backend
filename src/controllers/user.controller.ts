@@ -33,7 +33,7 @@ export class UserController {
             phone,
           },
         },
-        { new: true, runValidators: true } 
+        { new: true, runValidators: true },
       );
 
       if (!updatedUser) {
@@ -43,89 +43,106 @@ export class UserController {
       return ResponseHandler.success(
         res,
         updatedUser,
-        "Profile updated successfully"
+        "Profile updated successfully",
       );
     } catch (error) {
       next(error);
     }
   }
 
-  async billHistory (req: Request, res: Response, next: NextFunction) {
+  async billHistory(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user.id;
 
-      const paidBills = await AssignedBill.find({ assigneeId: userId, status: "paid" })
+      const paidBills = await AssignedBill.find({
+        assigneeId: userId,
+        status: "paid",
+      });
 
-      if ( paidBills.length === 0 ) return ResponseHandler.failure(res, "Your payment history is empty", 404)
-      
+      if (paidBills.length === 0)
+        return ResponseHandler.failure(
+          res,
+          "Your payment history is empty",
+          404,
+        );
+
       return ResponseHandler.success(
         res,
         paidBills,
-        "Payment history fetched successfully"
+        "Payment history fetched successfully",
       );
     } catch (error: any) {
       return res.status(500).json({
         success: false,
-        message: 'An error occurred while retrieving your bill history',
+        message: "An error occurred while retrieving your bill history",
         error: error.message,
       });
     }
   }
 
-  async viewBill (req: Request, res: Response, next: NextFunction) {
+  async viewBill(req: Request, res: Response, next: NextFunction) {
     try {
       const { paymentId } = req.params;
       const userId = req.user.id;
 
-      const paymentDetails = await Payment.findOne({ _id: paymentId })
+      const paymentDetails = await Payment.findOne({ _id: paymentId });
 
-      if ( !paymentDetails ) return ResponseHandler.failure(res, "Payment not found", 404)
+      if (!paymentDetails)
+        return ResponseHandler.failure(res, "Payment not found", 404);
 
       return ResponseHandler.success(
         res,
         paymentDetails,
-        "Payment details fetched successfully"
+        "Payment details fetched successfully",
       );
     } catch (error: any) {
       return res.status(500).json({
         success: false,
-        message: 'An error occurred while retrieving bill details',
+        message: "An error occurred while retrieving bill details",
         error: error.message,
       });
     }
   }
 
-  async dueBills (req: Request, res: Response, next: NextFunction) {
+  async dueBills(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user.id;
 
-      const dueBills = await AssignedBill.find({ assigneeId: userId, status: "unpaid" })
+      const dueBills = await AssignedBill.find({
+        assigneeId: userId,
+        status: "unpaid",
+      });
 
       // The assigneeId can also be an organization, i.e. when assigneeType is 'group'
 
-      if ( dueBills.length === 0 ) return ResponseHandler.failure(res, "Your payment history is empty", 404)
-        
+      if (dueBills.length === 0)
+        return ResponseHandler.failure(
+          res,
+          "Your payment history is empty",
+          404,
+        );
+
       return ResponseHandler.success(
         res,
         dueBills,
-        "Payment history fetched successfully"
+        "Payment history fetched successfully",
       );
     } catch (error: any) {
       return res.status(500).json({
         success: false,
-        message: 'An error occurred while fetching your due bills',
+        message: "An error occurred while fetching your due bills",
         error: error.message,
       });
     }
   }
 
-  async addCard (req: Request, res: Response, next: NextFunction) {
+  async addCard(req: Request, res: Response, next: NextFunction) {
     try {
       // THis allows a user to add a payment card for future payments
     } catch (error: any) {
       return res.status(500).json({
         success: false,
-        message: 'An error occurred adding new card',
+        message: "An error occurred adding new card",
         error: error.message,
       });
     }

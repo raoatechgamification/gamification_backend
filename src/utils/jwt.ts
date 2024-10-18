@@ -4,15 +4,15 @@ const SECRET_KEY = process.env.JWT_SECRET!;
 
 export const generateToken = (
   payload: any,
-  expiresIn: string = "24h"
+  expiresIn: string = "24h",
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
     jwt.sign(payload, SECRET_KEY, { expiresIn }, (error, token) => {
       if (error) {
-        reject(error)
-      } else resolve(token as string)
-    })
-  })
+        reject(error);
+      } else resolve(token as string);
+    });
+  });
 };
 
 export const verifyToken = (token: string) => {

@@ -1,26 +1,29 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface SubmissionDocument extends Document {
   answerText: string;
   learnerId: string;
   assessmentId: string;
   submittedFile?: string;
-  comments?: string; 
-  score?: number; 
+  comments?: string;
+  score?: number;
 }
 
 const submissionSchema = new Schema<SubmissionDocument>(
   {
     answerText: { type: String, required: true },
     learnerId: { type: String, required: true },
-    assessmentId: { type: String, required: true }, 
-    submittedFile: { type: String }, 
-    comments: { type: String }, 
-    score: { type: Number, min: 0 }, 
+    assessmentId: { type: String, required: true },
+    submittedFile: { type: String },
+    comments: { type: String },
+    score: { type: Number, min: 0 },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model<SubmissionDocument>('Submission', submissionSchema);
+export default mongoose.model<SubmissionDocument>(
+  "Submission",
+  submissionSchema,
+);

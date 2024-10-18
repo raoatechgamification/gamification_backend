@@ -24,13 +24,13 @@ const validateMarkingGuide = [
         throw new Error("Keywords must be an array of strings");
       }
 
-      for (let keyword of keywords) {
+      for (const keyword of keywords) {
         if (typeof keyword !== "string") {
           throw new Error("All keywords must be valid strings");
         }
       }
 
-      return true; 
+      return true;
     }),
 ];
 
@@ -74,9 +74,9 @@ const errorResponse = (req: Request, res: Response, next: NextFunction) => {
 export const createAssessmentValidator = [
   param("courseId")
     .notEmpty()
-    .withMessage('Course ID is required')
+    .withMessage("Course ID is required")
     .isMongoId()
-    .withMessage('Course ID must be a valid MongoDB ObjectId'),
+    .withMessage("Course ID must be a valid MongoDB ObjectId"),
 
   body("title")
     .notEmpty()
@@ -92,7 +92,7 @@ export const createAssessmentValidator = [
     .notEmpty()
     .isNumeric()
     .withMessage(
-      "Please provide the highest attaniable score and as an integer"
+      "Please provide the highest attaniable score and as an integer",
     ),
 
   validateMarkingGuide,
@@ -105,9 +105,9 @@ export const createAssessmentValidator = [
 export const submissionValidator = [
   param("assessmentId")
     .notEmpty()
-    .withMessage('Assessment ID is required')
+    .withMessage("Assessment ID is required")
     .isMongoId()
-    .withMessage('Assessment ID must be a valid MongoDB ObjectId'),
+    .withMessage("Assessment ID must be a valid MongoDB ObjectId"),
 
   body("answerText")
     .notEmpty()
@@ -122,9 +122,9 @@ export const submissionValidator = [
 export const gradeAssessmentValidator = [
   param("submissionId")
     .notEmpty()
-    .withMessage('Submission ID is required')
+    .withMessage("Submission ID is required")
     .isMongoId()
-    .withMessage('Submission ID must be a valid MongoDB ObjectId'),
+    .withMessage("Submission ID must be a valid MongoDB ObjectId"),
 
   body("score")
     .notEmpty()
@@ -137,7 +137,7 @@ export const gradeAssessmentValidator = [
     .notEmpty()
     .isBoolean()
     .withMessage(
-      "Please select if you want learners' submissions to be graded automatically or manually"
+      "Please select if you want learners' submissions to be graded automatically or manually",
     ),
 
   errorResponse,
@@ -146,9 +146,9 @@ export const gradeAssessmentValidator = [
 export const viewLearnersValidator = [
   param("assessmentId")
     .notEmpty()
-    .withMessage('Assessment ID is required')
+    .withMessage("Assessment ID is required")
     .isMongoId()
-    .withMessage('Assessment ID must be a valid MongoDB ObjectId'),
+    .withMessage("Assessment ID must be a valid MongoDB ObjectId"),
 
   errorResponse,
 ];

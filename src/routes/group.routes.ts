@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { authenticate, authorize } from "../middlewares/auth.middleware";
 import { GroupController } from "../controllers/group.controller";
-import { 
-  validateCreateGroup, 
-  validateEditGroup 
+import {
+  validateCreateGroup,
+  validateEditGroup,
 } from "../validators/group.validator";
 
 const { createGroup, editGroup } = new GroupController();
@@ -11,18 +11,19 @@ const { createGroup, editGroup } = new GroupController();
 const router = Router();
 
 router.post(
-  "/create", 
-  authenticate, 
-  authorize("admin"), 
+  "/create",
+  authenticate,
+  authorize("admin"),
   ...validateCreateGroup,
-  createGroup);
+  createGroup,
+);
 
 router.put(
-  "/edit/:groupId", 
-  authenticate, 
-  authorize("admin"), 
+  "/edit/:groupId",
+  authenticate,
+  authorize("admin"),
   ...validateEditGroup,
-  editGroup
+  editGroup,
 );
 
 export default router;

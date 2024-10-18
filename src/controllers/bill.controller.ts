@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Bill from "../models/bill.model";
-import AssignedBill from "../models/assignedBill.model"
+import AssignedBill from "../models/assignedBill.model";
 import { ResponseHandler } from "../middlewares/responseHandler.middleware";
 
 class BillController {
@@ -19,24 +19,24 @@ class BillController {
 
       const newBill = await Bill.create({
         title,
-        summary, 
+        summary,
         amount,
         dueDate,
         billFor,
-      })
+      });
 
       const newAssignedBill = await AssignedBill.create({
         billId: newBill._id,
         assigneeId: assignee,
-        assigneeType, 
-        status: 'unpaid'
-      })
-      
+        assigneeType,
+        status: "unpaid",
+      });
+
       return ResponseHandler.success(
         res,
-        { bill: newBill, assignedBill: newAssignedBill},
+        { bill: newBill, assignedBill: newAssignedBill },
         "Bill created and assigned successfully",
-        201
+        201,
       );
     } catch (error) {
       next(error);
@@ -55,7 +55,7 @@ class BillController {
       return ResponseHandler.success(
         res,
         bills,
-        "All bills retrieved successfully"
+        "All bills retrieved successfully",
       );
     } catch (error) {
       next(error);

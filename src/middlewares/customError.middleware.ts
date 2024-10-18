@@ -15,7 +15,7 @@ export class CustomError extends Error {
     type: ErrorType,
     message: string,
     statusCode: number,
-    details?: any
+    details?: any,
   ) {
     super(message);
     this.type = type;

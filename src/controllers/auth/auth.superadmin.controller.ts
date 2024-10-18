@@ -8,7 +8,7 @@ export class SuperAdminAuthController {
   static async registerSuperAdmin(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       let { email, password } = req.body;
@@ -19,7 +19,7 @@ export class SuperAdminAuthController {
         return ResponseHandler.failure(
           res,
           "Email already registered, kindly sign in to proceed",
-          400
+          400,
         );
       }
 
@@ -30,7 +30,12 @@ export class SuperAdminAuthController {
         password,
       });
 
-      return ResponseHandler.success(res, [], "Super admin account created", 201);
+      return ResponseHandler.success(
+        res,
+        [],
+        "Super admin account created",
+        201,
+      );
     } catch (error) {
       next(error);
     }
@@ -39,7 +44,7 @@ export class SuperAdminAuthController {
   static async loginSuperAdmin(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { email, password } = req.body;
@@ -50,25 +55,25 @@ export class SuperAdminAuthController {
         return ResponseHandler.failure(
           res,
           "Super Admin does not exist with this email",
-          400
+          400,
         );
       }
 
       const checkPassword = await comparePassword(
         password,
-        superAdmin.password
+        superAdmin.password,
       );
 
       if (!checkPassword) {
         return ResponseHandler.failure(
           res,
           "You have entered an incorrect password",
-          400
+          400,
         );
       }
 
       const payload = {
-        id: superAdmin._id, 
+        id: superAdmin._id,
         email: superAdmin.email,
         username: superAdmin.username,
         firstName: superAdmin.firstName,
@@ -79,14 +84,14 @@ export class SuperAdminAuthController {
       const token = await generateToken(payload);
 
       const adminResponse = await SuperAdmin.findOne({
-        _id: superAdmin._id, 
-      }).select("-password -role"); 
-      
+        _id: superAdmin._id,
+      }).select("-password -role");
+
       return ResponseHandler.loginResponse(
         res,
         token,
         adminResponse,
-        "Login Successful"
+        "Login Successful",
       );
     } catch (error) {
       next(error);

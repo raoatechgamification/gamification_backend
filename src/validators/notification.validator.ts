@@ -15,7 +15,6 @@ const errorResponse = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-
 export const createNotificationValidator = [
   body("userId")
     .notEmpty()
@@ -35,7 +34,7 @@ export const createNotificationValidator = [
     .isString()
     .withMessage("Message must be a string"),
 
-  errorResponse
+  errorResponse,
 ];
 
 export const markAsReadValidator = [
@@ -45,6 +44,5 @@ export const markAsReadValidator = [
     .isMongoId()
     .withMessage("Notification ID must be a valid Mongo ID"),
 
-  errorResponse
+  errorResponse,
 ];
-

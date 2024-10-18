@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface CourseContentDocument extends Document {
   courseId: string;
@@ -13,12 +13,15 @@ const courseContentSchema = new Schema<CourseContentDocument>(
     courseId: { type: String, required: true },
     title: { type: String, required: true },
     objectives: { type: String, required: true },
-    link: { type: String }, 
-    files: { type: [String] }, 
+    link: { type: String },
+    files: { type: [String] },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model<CourseContentDocument>('CourseContent', courseContentSchema);
+export default mongoose.model<CourseContentDocument>(
+  "CourseContent",
+  courseContentSchema,
+);

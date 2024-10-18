@@ -1,14 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 import { ResponseHandler } from "../middlewares/responseHandler.middleware";
-import Organization, { OrganizationDocument } from "../models/organization.model";
-import User, { IUser } from "../models/user.model"; 
-import { UserDocument } from "../models/user.model"; 
+import Organization, {
+  OrganizationDocument,
+} from "../models/organization.model";
+import User, { IUser } from "../models/user.model";
+import { UserDocument } from "../models/user.model";
 
 export class SuperAdminController {
   static async viewOrganizations(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const organizations: OrganizationDocument[] = await Organization.find();
@@ -32,7 +34,7 @@ export class SuperAdminController {
             totalCustomers,
             registeredDate: formattedDate,
           };
-        })
+        }),
       );
 
       return ResponseHandler.success(res, {
@@ -73,21 +75,23 @@ export class SuperAdminController {
             role: user.role,
             organization: organizationInfo,
           };
-        })
+        }),
       );
 
-      return ResponseHandler.success(res, userData, "Users fetched successfully");
+      return ResponseHandler.success(
+        res,
+        userData,
+        "Users fetched successfully",
+      );
     } catch (error) {
       next(error);
     }
   }
 
-  static async customCreate (req: Request, res: Response, next: NextFunction) {
+  static async customCreate(req: Request, res: Response, next: NextFunction) {
     try {
-      
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }
-

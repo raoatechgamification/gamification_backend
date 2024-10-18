@@ -27,7 +27,7 @@ router.post(
   authorize("admin"),
   upload.single("file"),
   ...createAssessmentValidator,
-  createAssessmentHandler
+  createAssessmentHandler,
 );
 
 router.put(
@@ -35,7 +35,7 @@ router.put(
   authenticate,
   authorize("admin"),
   ...gradeAssessmentValidator,
-  gradeSubmission
+  gradeSubmission,
 );
 
 router.get(
@@ -43,7 +43,7 @@ router.get(
   authenticate,
   authorize("admin"),
   ...viewLearnersValidator,
-  getSubmissionsForAssessment
+  getSubmissionsForAssessment,
 );
 
 router.post(
@@ -52,7 +52,7 @@ router.post(
   authorize("user"),
   upload.single("file"),
   ...submissionValidator,
-  submitAssessment
+  submitAssessment,
 );
 
 export default router;

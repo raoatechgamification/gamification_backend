@@ -6,7 +6,7 @@ import MarkingGuide from "../models/markingGuide.model";
 import Assessment from "../models/assessment.model";
 import Submission from "../models/submission.model";
 import Course from "../models/course.model";
-import { uploadToCloudinary } from "../utils/cloudinaryUpload"
+import { uploadToCloudinary } from "../utils/cloudinaryUpload";
 
 export class AssessmentController {
   async createAssessment(req: Request, res: Response, next: NextFunction) {
@@ -24,7 +24,11 @@ export class AssessmentController {
       let fileUploadResult: any = null;
 
       if (file) {
-        fileUploadResult = await uploadToCloudinary(file.buffer, file.mimetype, "assessment");
+        fileUploadResult = await uploadToCloudinary(
+          file.buffer,
+          file.mimetype,
+          "assessment",
+        );
 
         // const filename = `${Date.now()}-${file.originalname}`;
         // const fileStream = file.buffer;
@@ -44,7 +48,7 @@ export class AssessmentController {
         title,
         question,
         highestAttainableScore,
-        file: fileUploadResult ? fileUploadResult.secure_url : null, 
+        file: fileUploadResult ? fileUploadResult.secure_url : null,
         // file: fileUploadResult ? fileUploadResult.Location : null,
         courseId,
         instructorId,
@@ -63,7 +67,7 @@ export class AssessmentController {
         res,
         assessment,
         "Assessment created successfully",
-        201
+        201,
       );
     } catch (error) {
       next(error);
@@ -73,7 +77,7 @@ export class AssessmentController {
   async getSubmissionsForAssessment(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { assessmentId } = req.params;
@@ -87,7 +91,7 @@ export class AssessmentController {
         return ResponseHandler.failure(
           res,
           "Assessment not found for this instructor",
-          404
+          404,
         );
       }
 
@@ -122,15 +126,19 @@ export class AssessmentController {
         return ResponseHandler.failure(
           res,
           "Associated assessment not found",
-          404
+          404,
         );
       }
 
-      if (!new mongoose.Types.ObjectId(assessment.instructorId).equals(instructorId)) {
+      if (
+        !new mongoose.Types.ObjectId(assessment.instructorId).equals(
+          instructorId,
+        )
+      ) {
         return ResponseHandler.failure(
           res,
           "You are not authorized to grade this assessment",
-          403
+          403,
         );
       }
 
@@ -138,7 +146,7 @@ export class AssessmentController {
         return ResponseHandler.failure(
           res,
           "Submission has already been graded.",
-          400
+          400,
         );
       }
 
@@ -154,7 +162,7 @@ export class AssessmentController {
           submission.answerText,
           markingGuide.expectedAnswer,
           markingGuide.keywords,
-          markingGuide.maxScore
+          markingGuide.maxScore,
         );
 
         if (aiResult.error) {
@@ -168,7 +176,7 @@ export class AssessmentController {
           return ResponseHandler.failure(
             res,
             `Score cannot exceed the highest attainable score of ${assessment.highestAttainableScore}.`,
-            400
+            400,
           );
         }
 
@@ -181,7 +189,7 @@ export class AssessmentController {
       return ResponseHandler.success(
         res,
         submission,
-        "Learner graded successfully"
+        "Learner graded successfully",
       );
     } catch (error: any) {
       next(error);

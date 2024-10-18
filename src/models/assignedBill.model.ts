@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface assignedBillDocument extends Document {
   billId: Schema.Types.ObjectId;
@@ -10,15 +10,18 @@ export interface assignedBillDocument extends Document {
 
 const assignedBillSchema = new Schema<assignedBillDocument>(
   {
-    billId: { type: Schema.Types.ObjectId, required: true},
+    billId: { type: Schema.Types.ObjectId, required: true },
     assigneeId: { type: String, required: true },
     assigneeType: { type: String, required: true },
     status: { type: String, required: true },
-    paymentId: { type: String }
+    paymentId: { type: String },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model<assignedBillDocument>('assignedBill', assignedBillSchema);
+export default mongoose.model<assignedBillDocument>(
+  "assignedBill",
+  assignedBillSchema,
+);

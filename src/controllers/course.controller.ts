@@ -28,7 +28,7 @@ export class CourseController {
         res,
         course,
         "Course created successfully",
-        201
+        201,
       );
     } catch (error) {
       next(error);
@@ -51,11 +51,11 @@ export class CourseController {
         return ResponseHandler.failure(
           res,
           "You are not authorized to add contents to this course",
-          403
+          403,
         );
       }
 
-      let Urls: string[] = [];
+      const Urls: string[] = [];
 
       if (files && files.length > 0) {
         for (let i = 0; i < files.length; i++) {
@@ -63,7 +63,7 @@ export class CourseController {
           const uploadResult = await uploadToCloudinary(
             file.buffer,
             file.mimetype,
-            "course-content"
+            "course-content",
           );
           if (uploadResult && uploadResult.secure_url) {
             Urls.push(uploadResult.secure_url);
@@ -84,24 +84,20 @@ export class CourseController {
       return ResponseHandler.success(
         res,
         curriculum,
-        "Course curriculum updated successfully"
+        "Course curriculum updated successfully",
       );
     } catch (error) {
       next(error);
     }
   }
 
-  async getCourseCurriculum (req: Request, res: Response, next: NextFunction) {
+  async getCourseCurriculum(req: Request, res: Response, next: NextFunction) {
     try {
       const { courseId } = req.params;
 
       const course = await Course.findById(courseId);
-      if ( !course ) {
-        return ResponseHandler.failure(
-          res,
-          "Course not found",
-          400
-        );
+      if (!course) {
+        return ResponseHandler.failure(res, "Course not found", 400);
       }
 
       const curriculum = await CourseContent.find({ courseId });
@@ -109,10 +105,10 @@ export class CourseController {
       return ResponseHandler.success(
         res,
         curriculum,
-        "Course curriculum fetched successfully"
+        "Course curriculum fetched successfully",
       );
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 
@@ -137,14 +133,14 @@ export class CourseController {
             title,
             details,
             courseIds: course._id,
-          })
-        )
+          }),
+        ),
       );
 
       if (sendEmail) {
         for (const course of validCourses) {
           const learners = course.learnerIds || [];
-  
+
           for (const learnerId of learners) {
             await createNotification({
               userId: learnerId,
@@ -159,24 +155,24 @@ export class CourseController {
         res,
         announcements,
         "Announcements created and notifications sent",
-        201
+        201,
       );
     } catch (error) {
       next(error);
     }
   }
 
-  async getAllAnnouncementsByCourse(req: Request, res: Response, next: NextFunction) {
+  async getAllAnnouncementsByCourse(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const { courseId } = req.params;
 
       const course = await Course.findById(courseId);
-      if ( !course ) {
-        return ResponseHandler.failure(
-          res,
-          "Course not found",
-          400
-        );
+      if (!course) {
+        return ResponseHandler.failure(res, "Course not found", 400);
       }
 
       const announcements = await Announcement.find({ courseId });
@@ -184,9 +180,10 @@ export class CourseController {
       return ResponseHandler.success(
         res,
         announcements,
-        "Course announcements fetched successfully"
-      );    } catch (error) {
-      next(error)
+        "Course announcements fetched successfully",
+      );
+    } catch (error) {
+      next(error);
     }
   }
 }

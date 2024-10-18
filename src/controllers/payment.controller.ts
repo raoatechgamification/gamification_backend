@@ -6,7 +6,6 @@ import Bill from "../models/bill.model";
 import AssignedBill from "../models/assignedBill.model";
 import { ResponseHandler } from "../middlewares/responseHandler.middleware";
 
-
 class PaymentController {
   // async processPayment(req: Request, res: Response) {
   //   const { courseId } = req.params;
@@ -56,12 +55,12 @@ class PaymentController {
       const userId = req.user.id;
 
       const assginedBill = await AssignedBill.findOne({ _id: assignedBillId });
-      if ( !assginedBill ) {
+      if (!assginedBill) {
         return ResponseHandler.failure(res, "No assigned bill found", 404);
       }
 
-      const bill = await Bill.findOne({ _id: assginedBill.billId})
-      if ( !bill ) {
+      const bill = await Bill.findOne({ _id: assginedBill.billId });
+      if (!bill) {
         return ResponseHandler.failure(res, "No bill found", 404);
       }
 
@@ -71,7 +70,7 @@ class PaymentController {
         userId,
         cardToken,
         bill.amount,
-        courseId
+        courseId,
       );
 
       if (paymentResult.success) {
@@ -81,7 +80,7 @@ class PaymentController {
       return ResponseHandler.success(
         res,
         paymentResult,
-        "Payment processed successfully"
+        "Payment processed successfully",
       );
     } catch (error) {
       next(error);
@@ -161,7 +160,7 @@ class PaymentController {
       return ResponseHandler.success(
         res,
         paymentStatus,
-        "Payment status verified successfully"
+        "Payment status verified successfully",
       );
     } catch (error) {
       next(error);

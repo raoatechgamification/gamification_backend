@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface NotificationDocument extends Document {
   userId: string;
@@ -16,7 +16,10 @@ const notificationSchema = new Schema<NotificationDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model<NotificationDocument>('Notification', notificationSchema);
+export default mongoose.model<NotificationDocument>(
+  "Notification",
+  notificationSchema,
+);

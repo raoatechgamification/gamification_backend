@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface UserPaymentMethodDocument extends Document {
   userId: string;
@@ -20,10 +20,10 @@ const userPaymentMethodSchema = new Schema<UserPaymentMethodDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default mongoose.model<UserPaymentMethodDocument>(
-  'UserPaymentMethod',
-  userPaymentMethodSchema
+  "UserPaymentMethod",
+  userPaymentMethodSchema,
 );

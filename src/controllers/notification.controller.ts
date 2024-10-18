@@ -24,7 +24,7 @@ export class NotificationController {
       return ResponseHandler.success(
         res,
         notifications,
-        "Notifications fetched successfully"
+        "Notifications fetched successfully",
       );
     } catch (error) {
       next(error);
@@ -37,7 +37,7 @@ export class NotificationController {
       const notification = await Notification.findByIdAndUpdate(
         notificationId,
         { isRead: true },
-        { new: true }
+        { new: true },
       );
 
       if (!notification) {
@@ -47,7 +47,7 @@ export class NotificationController {
       return ResponseHandler.success(
         res,
         notification,
-        "Notification marked as read"
+        "Notification marked as read",
       );
     } catch (error) {
       next(error);

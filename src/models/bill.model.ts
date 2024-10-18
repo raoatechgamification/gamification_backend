@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface BillDocument extends Document {
   organizationId: Schema.Types.ObjectId;
@@ -18,31 +18,31 @@ export interface BillDocument extends Document {
 
 const BillSchema = new Schema<BillDocument>(
   {
-    organizationId: { type: Schema.Types.ObjectId, required: true},
+    organizationId: { type: Schema.Types.ObjectId, required: true },
     title: { type: String, required: true },
     summary: { type: String, required: true },
-    amount: { type: Number, required: true }, 
-    dueDate: { type: Date, required: true }, 
-    billFor: { type: String, required: true }, 
+    amount: { type: Number, required: true },
+    dueDate: { type: Date, required: true },
+    billFor: { type: String, required: true },
 
     // assignee: {
-    //   terms: [{ 
-    //     type: Schema.Types.ObjectId, 
-    //     // ref: 'Term', 
-    //     required: false }], 
-    //   sessions: [{ 
-    //     type: Schema.Types.ObjectId, 
-    //     // ref: 'Session', 
-    //     required: false }], 
-    //   individuals: [{ 
-    //     type: Schema.Types.ObjectId, 
-    //     ref: 'User', 
-    //     required: false }], 
-    //   groups: [{ 
-    //     type: Schema.Types.ObjectId, 
-    //     ref: 'Group', 
-    //     required: false 
-    //   }], 
+    //   terms: [{
+    //     type: Schema.Types.ObjectId,
+    //     // ref: 'Term',
+    //     required: false }],
+    //   sessions: [{
+    //     type: Schema.Types.ObjectId,
+    //     // ref: 'Session',
+    //     required: false }],
+    //   individuals: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: false }],
+    //   groups: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Group',
+    //     required: false
+    //   }],
     //   subgroups: [{
     //     type: Schema.Types.ObjectId,
     //     // ref: 'Subgroup',
@@ -52,7 +52,7 @@ const BillSchema = new Schema<BillDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model<BillDocument>('Bill', BillSchema);
+export default mongoose.model<BillDocument>("Bill", BillSchema);
