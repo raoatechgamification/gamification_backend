@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import connectDB from "./config/db";
 import logger from "./utils/logger";
-
+import routes from "./routes/index.routes";
 dotenv.config();
 
 const app: Application = express();
@@ -15,7 +15,7 @@ app.use(
   cors({
     origin: "*",
     credentials: true,
-  })
+  }),
 );
 
 app.use(bodyParser.json());
@@ -38,7 +38,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-
 app.get("/", (req: Request, res: Response) => {
   res.json({
     success: true,
@@ -46,6 +45,6 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-app.use("/api/v1", require("./routes/index.routes"));
+app.use("/api/v1", routes);
 
 export default app;

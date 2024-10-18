@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { ResponseHandler } from "../../middlewares/responseHandler.middleware";
 import Organization, {
   OrganizationDocument,
-} from "../../models/organization.model"; 
+} from "../../models/organization.model";
+
 import { hashPassword, comparePassword } from "../../utils/hash";
 import { generateToken } from "../../utils/jwt";
 
@@ -10,17 +11,17 @@ export class AdminAuthController {
   static async registerOrganization(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const {
-        name, 
-        email, 
-        phone, 
-        preferredUrl, 
-        password, 
-        confirmPassword, 
-        referral, 
+        name,
+        email,
+        phone,
+        preferredUrl,
+        password,
+        confirmPassword,
+        referral,
         referralSource,
       } = req.body;
 
@@ -30,7 +31,7 @@ export class AdminAuthController {
         return ResponseHandler.failure(
           res,
           "An Organization with this email already exists",
-          400
+          400,
         );
       }
 
@@ -40,7 +41,7 @@ export class AdminAuthController {
         return ResponseHandler.failure(
           res,
           "Phone number is already registered",
-          400
+          400,
         );
       }
 
@@ -67,14 +68,14 @@ export class AdminAuthController {
       // Retrieve the created organization, excluding sensitive fields
       const organization: OrganizationDocument | null =
         await Organization.findById(newOrganization._id).select(
-          "-password -role"
+          "-password -role",
         ); // Exclude password and role
 
       return ResponseHandler.success(
         res,
         organization,
         "Organization created successfully",
-        201
+        201,
       );
     } catch (error) {
       next(error);
@@ -84,7 +85,7 @@ export class AdminAuthController {
   static async loginOrganization(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { email, password } = req.body;
@@ -99,21 +100,21 @@ export class AdminAuthController {
         return ResponseHandler.failure(
           res,
           "The email you entered does not exist",
-          400
+          400,
         );
       }
 
       // Compare the password
       const isPasswordValid = await comparePassword(
         password,
-        registeredOrganization.password
+        registeredOrganization.password,
       );
 
       if (!isPasswordValid) {
         return ResponseHandler.failure(
           res,
           "You have entered an incorrect password",
-          400
+          400,
         );
       }
 
@@ -132,7 +133,7 @@ export class AdminAuthController {
         res,
         token,
         registeredOrganization,
-        "You have successfully logged in"
+        "You have successfully logged in",
       );
     } catch (error) {
       next(error);
