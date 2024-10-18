@@ -39,7 +39,7 @@ export class CourseController {
     try {
       const instructorId = req.admin._id;
       const { courseId } = req.params;
-      const { title, objectives, link } = req.body;
+      // const { title, objectives, link } = req.body;
 
       const files = req.files as Express.Multer.File[];
 
@@ -71,13 +71,13 @@ export class CourseController {
         }
       }
 
-      const courseContent = await CourseContent.create({
-        courseId,
-        title,
-        objectives,
-        link,
-        files: Urls,
-      });
+      // const courseContent = await CourseContent.create({
+      //   courseId,
+      //   title,
+      //   objectives,
+      //   link,
+      //   files: Urls,
+      // });
 
       const curriculum = await CourseContent.find({ courseId });
 
@@ -115,7 +115,7 @@ export class CourseController {
   async createAnnouncement(req: Request, res: Response, next: NextFunction) {
     try {
       const instructorId = req.admin._id;
-      const { courseId } = req.params;
+      // const { courseId } = req.params;
       const { title, details, courseList = [], sendEmail } = req.body;
 
       const validCourses = await Course.find({

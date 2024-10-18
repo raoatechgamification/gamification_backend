@@ -11,7 +11,8 @@ export class SuperAdminAuthController {
     next: NextFunction,
   ) {
     try {
-      let { email, password } = req.body;
+      const { email } = req.body;
+      let { password } = req.body;
 
       const existingSuperAdmin = await SuperAdmin.findOne({ email });
 
@@ -29,6 +30,7 @@ export class SuperAdminAuthController {
         email,
         password,
       });
+      console.log(newSuperAdmin);
 
       return ResponseHandler.success(
         res,

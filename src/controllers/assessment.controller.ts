@@ -21,7 +21,7 @@ export class AssessmentController {
         return ResponseHandler.failure(res, "Course not found", 404);
       }
 
-      let fileUploadResult: any = null;
+      let fileUploadResult = null;
 
       if (file) {
         fileUploadResult = await uploadToCloudinary(
@@ -191,7 +191,7 @@ export class AssessmentController {
         submission,
         "Learner graded successfully",
       );
-    } catch (error: any) {
+    } catch (error) {
       next(error);
     }
   }

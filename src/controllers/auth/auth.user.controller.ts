@@ -8,7 +8,8 @@ import { generateToken } from "../../utils/jwt";
 export class UserAuthController {
   static async registerUser(req: Request, res: Response, next: NextFunction) {
     try {
-      let { email, username, organizationId, password } = req.body;
+      let { password } = req.body;
+      const { email, username, organizationId } = req.body;
 
       const existingUser = await User.findOne({ email });
 

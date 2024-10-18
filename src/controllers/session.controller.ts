@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { ResponseHandler } from "../middlewares/responseHandler.middleware";
 import Session from "../models/session.model";
-import Bill from "../models/bill.model";
+
 import AssignedBill from "../models/assignedBill.model";
 
 class SessionController {
@@ -35,7 +35,7 @@ class SessionController {
         "Session created successfully",
         201,
       );
-    } catch (error: any) {
+    } catch (error) {
       return ResponseHandler.failure(
         res,
         "An error occurred, unable to create session.",
@@ -68,7 +68,7 @@ class SessionController {
         "Session updated successfully",
         200,
       );
-    } catch (error: any) {
+    } catch (error) {
       return ResponseHandler.failure(
         res,
         "an error occurred, unable to edit session.",
@@ -94,7 +94,7 @@ class SessionController {
         "Session retrieved successfully",
         200,
       );
-    } catch (error: any) {
+    } catch (error) {
       return ResponseHandler.failure(
         res,
         "An error occurred, unable to fetch session.",
@@ -116,7 +116,7 @@ class SessionController {
         "All sessions retrieved successfully",
         200,
       );
-    } catch (error: any) {
+    } catch (error) {
       return ResponseHandler.failure(
         res,
         "An error occurred, unable to view all sessions.",
@@ -128,7 +128,7 @@ class SessionController {
 
   async deleteSession(req: Request, res: Response) {
     try {
-      const organizationId = req.admin._id;
+      // const organizationId = req.admin._id;
       const { sessionId } = req.params;
 
       const deletedSession = await Session.findByIdAndDelete(sessionId);
@@ -143,7 +143,7 @@ class SessionController {
         "Session deleted successfully",
         200,
       );
-    } catch (error: any) {
+    } catch (error) {
       return ResponseHandler.failure(
         res,
         "An error occurred, unable to delete session.",

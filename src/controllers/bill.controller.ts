@@ -15,7 +15,7 @@ class BillController {
         assigneeType,
         assignee,
       } = req.body;
-      const organizationId = req.admin._id;
+      // const organizationId = req.admin._id;
 
       const newBill = await Bill.create({
         title,

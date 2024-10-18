@@ -64,7 +64,7 @@ class PaymentController {
         return ResponseHandler.failure(res, "No bill found", 404);
       }
 
-      const { courseId, cardToken, amount } = req.body;
+      const { courseId, cardToken } = req.body;
 
       const paymentResult = await PaymentService.processPayment(
         userId,
@@ -88,20 +88,20 @@ class PaymentController {
   }
 
   async addCard(req: Request, res: Response) {
-    const { email, cardNumber, expiryMonth, expiryYear, cvv } = req.body;
+    const { email } = req.body;
 
     try {
-      const cardData = {
-        email,
-        card: {
-          number: cardNumber,
-          cvv,
-          expiry_month: expiryMonth,
-          expiry_year: expiryYear,
-        },
-      };
+      // const cardData = {
+      //   email,
+      //   card: {
+      //     number: cardNumber,
+      //     cvv,
+      //     expiry_month: expiryMonth,
+      //     expiry_year: expiryYear,
+      //   },
+      // };
 
-      const cardResponse = await PaymentService.saveCard(cardData);
+      // const cardResponse = await PaymentService.saveCard(cardData);
 
       const user = await User.findOne({ email });
 

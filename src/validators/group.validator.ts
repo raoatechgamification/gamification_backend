@@ -43,7 +43,7 @@ export const validateCreateGroup = [
   body("groups")
     .isArray({ min: 1 })
     .withMessage("Groups must be a non-empty array")
-    .custom((groups) => groups.every((group: any) => typeof group === "string"))
+    .custom((groups) => groups.every((group) => typeof group === "string"))
     .withMessage("Each group must be a string"),
 
   body("generalSubLearnerGroupTerm")
@@ -58,7 +58,7 @@ export const validateCreateGroup = [
     .isArray({ min: 1 })
     .withMessage("Sub-groups must be a non-empty array")
     .custom((subGroups) =>
-      subGroups.every((subGroup: any) => typeof subGroup === "string"),
+      subGroups.every((subGroup) => typeof subGroup === "string"),
     )
     .withMessage("Each sub-group must be a string"),
 
@@ -73,7 +73,7 @@ export const validateCreateGroup = [
   body("instructorNames")
     .isArray({ min: 1 })
     .withMessage("Instructor names must be a non-empty array")
-    .custom((names) => names.every((name: any) => typeof name === "string"))
+    .custom((names) => names.every((name) => typeof name === "string"))
     .withMessage("Each instructor name must be a string"),
 
   body("maxMembersPerProgram")
@@ -125,7 +125,7 @@ export const validateEditGroup = [
     .optional()
     .isArray()
     .withMessage("Groups must be an array")
-    .custom((groups) => groups.every((group: any) => typeof group === "string"))
+    .custom((groups) => groups.every((group) => typeof group === "string"))
     .withMessage("Each group must be a string"),
 
   body("generalSubLearnerGroupTerm")
@@ -140,7 +140,7 @@ export const validateEditGroup = [
     .isArray()
     .withMessage("Sub-groups must be an array")
     .custom((subGroups) =>
-      subGroups.every((subGroup: any) => typeof subGroup === "string"),
+      subGroups.every((subGroup) => typeof subGroup === "string"),
     )
     .withMessage("Each sub-group must be a string"),
 
@@ -155,7 +155,7 @@ export const validateEditGroup = [
     .optional()
     .isArray()
     .withMessage("Instructor names must be an array")
-    .custom((names) => names.every((name: any) => typeof name === "string"))
+    .custom((names) => names.every((name) => typeof name === "string"))
     .withMessage("Each instructor name must be a string"),
 
   body("maxMembersPerProgram")

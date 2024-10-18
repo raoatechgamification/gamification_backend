@@ -50,7 +50,7 @@ export class UserController {
     }
   }
 
-  async billHistory(req: Request, res: Response, next: NextFunction) {
+  async billHistory(req: Request, res: Response) {
     try {
       const userId = req.user.id;
 
@@ -71,7 +71,7 @@ export class UserController {
         paidBills,
         "Payment history fetched successfully",
       );
-    } catch (error: any) {
+    } catch (error) {
       return res.status(500).json({
         success: false,
         message: "An error occurred while retrieving your bill history",
@@ -80,10 +80,10 @@ export class UserController {
     }
   }
 
-  async viewBill(req: Request, res: Response, next: NextFunction) {
+  async viewBill(req: Request, res: Response) {
     try {
       const { paymentId } = req.params;
-      const userId = req.user.id;
+      // const userId = req.user.id;
 
       const paymentDetails = await Payment.findOne({ _id: paymentId });
 
@@ -95,7 +95,7 @@ export class UserController {
         paymentDetails,
         "Payment details fetched successfully",
       );
-    } catch (error: any) {
+    } catch (error) {
       return res.status(500).json({
         success: false,
         message: "An error occurred while retrieving bill details",
@@ -104,7 +104,7 @@ export class UserController {
     }
   }
 
-  async dueBills(req: Request, res: Response, next: NextFunction) {
+  async dueBills(req: Request, res: Response) {
     try {
       const userId = req.user.id;
 
@@ -127,7 +127,7 @@ export class UserController {
         dueBills,
         "Payment history fetched successfully",
       );
-    } catch (error: any) {
+    } catch (error) {
       return res.status(500).json({
         success: false,
         message: "An error occurred while fetching your due bills",
@@ -136,10 +136,10 @@ export class UserController {
     }
   }
 
-  async addCard(req: Request, res: Response, next: NextFunction) {
+  async addCard(req: Request, res: Response) {
     try {
       // THis allows a user to add a payment card for future payments
-    } catch (error: any) {
+    } catch (error) {
       return res.status(500).json({
         success: false,
         message: "An error occurred adding new card",

@@ -3,7 +3,15 @@ import Notification from "../models/notification.model";
 import { ResponseHandler } from "../middlewares/responseHandler.middleware";
 
 export class NotificationController {
-  async createNotification({ userId, courseId, message }: any) {
+  async createNotification({
+    userId,
+    courseId,
+    message,
+  }: {
+    userId: string;
+    courseId: string | unknown;
+    message: string;
+  }) {
     try {
       await Notification.create({
         userId,

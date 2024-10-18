@@ -31,7 +31,7 @@ export class SubmissionController {
         );
       }
 
-      let fileUploadResult: any = null;
+      let fileUploadResult = null;
 
       if (file) {
         fileUploadResult = await uploadToCloudinary(
@@ -67,7 +67,7 @@ export class SubmissionController {
         submission,
         "Assessment submitted successfully",
       );
-    } catch (error: any) {
+    } catch (error) {
       if (error instanceof multer.MulterError) {
         if (error.code === "LIMIT_UNEXPECTED_FILE") {
           return ResponseHandler.failure(
