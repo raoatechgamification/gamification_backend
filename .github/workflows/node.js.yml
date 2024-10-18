@@ -50,4 +50,4 @@ jobs:
             cd ${{ secrets.EC2_PATH }}
             git pull origin test  # Pull from the 'test' branch
             npm install
-            pm2 restart myApp --interpreter ts-node  # Use the name you assigned when starting the app
+            pm2 restart app --interpreter ts-node  # Use the name you assigned when starting the app
