@@ -62,7 +62,7 @@ jobs:
             echo "Pulling latest code..."
             git pull origin test 
             echo "Installing dependencies..."
-            npm install 
+            npm ci 
 
             echo "Checking if the app is running..."
             # Check if the app is running
