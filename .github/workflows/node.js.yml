@@ -3,10 +3,10 @@ name: Node.js CI/CD Pipeline
 on:
   push:
     branches:
-      - test
+      - test # Change this to 'test' for staging or testing
   pull_request:
     branches:
-      - test
+      - test # Change this to 'test' for staging or testing
 
 jobs:
   build:
@@ -19,39 +19,37 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: "18" # Change this if you're using another version
 
       - name: Install dependencies
         run: npm install
 
       - name: Lint the code
-        run: npm run lint || true
+        run: npm run lint || true # Optional, if you use ESLint
 
       - name: Build the application
-        run: npm run build
+        run: npm run build # Only if you have a build process
 
-      - name: Create .env file
-        run: |
+      - run: |
           touch .env
-          echo "${{ secrets.PROD_ENV_FILE }}" > .env
-
+          echo "${{secrets.PROD_ENV_FILE}}" > .env
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/test' && success()
+    if: github.ref == 'refs/heads/test' && success() # Ensure it's for 'test' branch
 
     steps:
       - name: SSH into EC2 and Deploy
-        uses: appleboy/ssh-action@v0.1.8 # Update to a later version
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          timeout: 20m
+          timeout: 1h
           command_timeout: 30m  
           port: 22
           script: |
-            cd ${{ secrets.EC2_PATH }} || exit 1
-            git pull origin test || exit 1  
-            npm install || exit 1
-            pm2 restart app --interpreter ts-node || exit 1
+            cd ${{ secrets.EC2_PATH }}
+            git pull origin test  # Pull from the 'test' branch
+            npm install
+            pm2 restart app --interpreter ts-node 
