@@ -9,13 +9,13 @@ export enum ErrorType {
 export class CustomError extends Error {
   public type: ErrorType;
   public statusCode: number;
-  public details?: any;
+  public details?: unknown;
 
   constructor(
     type: ErrorType,
     message: string,
     statusCode: number,
-    details?: any,
+    details?: unknown,
   ) {
     super(message);
     this.type = type;

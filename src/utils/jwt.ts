@@ -1,9 +1,21 @@
 import jwt from "jsonwebtoken";
+import { Schema } from "mongoose";
 
 const SECRET_KEY = process.env.JWT_SECRET!;
 
+interface JwtPayload {
+  id: unknown;
+  email: string;
+  username: string;
+  phone: string;
+  organization: Schema.Types.ObjectId;
+  firstName: string;
+  lastName: string;
+  role: string;
+}
+
 export const generateToken = (
-  payload: any,
+  payload: JwtPayload,
   expiresIn: string = "24h",
 ): Promise<string> => {
   return new Promise((resolve, reject) => {

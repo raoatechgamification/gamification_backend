@@ -43,9 +43,14 @@ export class AIGradingService {
     }
   }
 }
+interface AIResponse {
+  keywordsMatched?: number; // Optional since it might not always exist
+  feedback?: string;
+  // Add other relevant fields if needed
+}
 
 function calculateAIScore(
-  aiResponse: any,
+  aiResponse: AIResponse,
   keywords: string[],
   maxScore: number,
 ): number {

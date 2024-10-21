@@ -11,7 +11,7 @@ export const uploadToCloudinary = async (
       folder,
     });
     return result;
-  } catch (error: any) {
+  } catch (error) {
     throw new Error(`Cloudinary upload failed: ${error.message}`);
   }
 };
