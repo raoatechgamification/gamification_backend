@@ -20,7 +20,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18" # Change this if you're using another version
-
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+            
       - name: Install dependencies
         run: npm install
 
@@ -49,10 +57,14 @@ jobs:
           command_timeout: 1h  
           port: 22
           script: |
+            echo "Changing directory..."
             cd ${{ secrets.EC2_PATH }}
+            echo "Pulling latest code..."
             git pull origin test 
+            echo "Installing dependencies..."
             npm install 
-            
+
+            echo "Checking if the app is running..."
             # Check if the app is running
             if pm2 list | grep -q 'app'; then
               pm2 restart app --interpreter ts-node 
