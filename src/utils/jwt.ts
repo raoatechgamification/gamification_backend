@@ -6,11 +6,11 @@ const SECRET_KEY = process.env.JWT_SECRET!;
 interface JwtPayload {
   id: unknown;
   email: string;
-  username: string;
-  phone: string;
-  organization: Schema.Types.ObjectId;
-  firstName: string;
-  lastName: string;
+  username?: string;
+  phone?: string;
+  organization?: Schema.Types.ObjectId;
+  firstName?: string;
+  lastName?: string;
   role: string;
 }
 

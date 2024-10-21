@@ -31,7 +31,13 @@ class PaymentService {
   private flutterwaveBaseUrl = "https://api.flutterwave.com/v3";
   private flutterwaveSecretKey = process.env.FLUTTERWAVE_SECRET_KEY;
 
-  async processPayment(userId: string, cardToken: string, amount: number) {
+  async processPayment(
+    userId: string,
+    cardToken: string,
+    amount: number,
+    courseId?: string,
+  ) {
+    console.log(courseId);
     const paymentPayload = {
       tx_ref: `TX-${Date.now()}`,
       amount,
