@@ -16,6 +16,7 @@ export const authenticate = (
     const decoded = verifyToken(token) as typeof User;
     req.user = decoded;
     next();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     return res.status(401).json({ message: "Invalid token" });
   }

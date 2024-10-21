@@ -7,7 +7,7 @@
     "type": "module",
     "dev": "npx ts-node-dev --max-old-space-size=4096 src/server.ts",
     "compile": "npx tsc && node dist/server.js",
-    "build": "tsc -p . --watch",
+    "build": "tsc -p .",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint",
