@@ -1,12 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { CustomError, ErrorType } from "./customError.middleware";
 
-export const errorHandler = (
-  err: CustomError,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const errorHandler = (err: CustomError, req: Request, res: Response) => {
   console.error(err); // Log the error for debugging
 
   if (err instanceof CustomError) {
