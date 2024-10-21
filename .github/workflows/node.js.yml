@@ -45,6 +45,8 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          timeout: 1h
+          command_timeout: 30m  
           port: 22
           script: |
             cd ${{ secrets.EC2_PATH }}
