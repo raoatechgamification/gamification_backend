@@ -49,7 +49,14 @@ jobs:
           command_timeout: 30m  
           port: 22
           script: |
-            cd ${{ secrets.EC2_PATH }}
-            git pull origin test  # Pull from the 'test' branch
-            npm install
-            pm2 restart app --interpreter ts-node 
+            cd ${{ secrets.EC2_PATH }} || exit 1
+            git pull origin test || exit 1  
+            npm install || exit 1
+            
+            # Check if the app is running
+            if pm2 list | grep -q 'app'; then
+              pm2 restart app --interpreter ts-node || exit 1
+            else
+              echo "Starting app for the first time."
+              pm2 start src/app.ts --name app --interpreter ts-node || exit 1
+            fi
