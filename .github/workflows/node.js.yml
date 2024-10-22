@@ -3,7 +3,7 @@ name: Node.js CI/CD Pipeline
 on:
   push:
     branches:
-      - test # Change this to 'test' for staging or testing
+      - test # Change this to 'test' for  staging or testing
   pull_request:
     branches:
       - test # Change this to 'test' for staging or testing
