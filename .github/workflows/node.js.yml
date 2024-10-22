@@ -30,7 +30,7 @@ jobs:
             ${{ runner.os }}-npm-
             
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Lint the code
         run: npm run lint || true # Optional, if you use ESLint
